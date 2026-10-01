@@ -1,16 +1,44 @@
-# React + Vite
+# FoundIt
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A lost and found app that helps people in Nairobi report lost or found items, search reports, see possible matches, and claim items that belong to them.
 
-Currently, two official plugins are available:
+Built with React (Vite) and React Router. Phase 1 is frontend only and uses mock data plus the Geoapify Geocoding API for locations.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Setup
 
-## React Compiler
+```bash
+git clone git@github.com:trizahn2002-source/foundit.git
+cd foundit
+npm install
+cp .env.example .env   # then add your Geoapify key
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Pages and routes
 
-## Expanding the ESLint configuration
+| Route | Page |
+|---|---|
+| `/` | Home: browse, search and filter items |
+| `/report` | Report a lost or found item |
+| `/items/:id` | Item details, possible matches and claims |
+| `/dashboard` | User dashboard |
+| `/login` | Login / register |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Mock data
+
+All shared data lives in `src/data/mockData.js` (`items`, `users`, `categories`).
+Import what you need, e.g. `import { items } from "../data/mockData";`
+
+## API used
+
+Geoapify Geocoding API (https://apidocs.geoapify.com/docs/geocoding). Endpoints to be documented.
+
+## Team workflow
+
+- Create your own branch: `git checkout -b feature/your-page`
+- Commit small and often with clear messages
+- Open a pull request to merge into `main`
+
+## Challenges / known bugs
+
+To be added later.

@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import {items} from "../data/mockData";
 import "./PossibleMatches.css";
 
 const MAX_DATE_DIFFERENCE =7;
@@ -103,8 +102,8 @@ function getMatchScore(currentItem, candidate) {
   return score;
 }
 
-function PossibleMatches({ currentItem }){
-    const possibleMatches = items
+function PossibleMatches({ currentItem, allItems }){
+    const possibleMatches = allItems
     .filter((item) => {
         return (
         item.reportType !== currentItem.reportType &&

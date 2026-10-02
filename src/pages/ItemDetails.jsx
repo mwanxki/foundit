@@ -1,3 +1,5 @@
+import ClaimForm from "../components/ClaimForm";
+import PossibleMatches from "../components/PossibleMatches";
 import { useParams, Link } from "react-router-dom";
 import { items, users } from "../data/mockData";
 import "./ItemDetails.css";
@@ -57,7 +59,13 @@ function ItemDetails() {
         </div>
       </div>
 
-      {/*Task 5: matches and claim form go here */}
+    {item.reportType === "lost" && item.status === "active" && (
+      <PossibleMatches currentItem={item} />
+    )}
+
+    {item.reportType === "found" && item.status === "active" && (
+      <ClaimForm />
+    )}
     </section>
   );
 }

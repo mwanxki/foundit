@@ -1,11 +1,62 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { items } from "../data/mockData";
+import "./Home.css";
 
 function Home() {
+  const [filter, setFilter] = useState("all");
+  const [search, setSearch] = useState("");
+
+  const shownItems = items.filter((item) => {
+    const matchesType = filter === "all" || item.reportType === filter;
+    const matchesSearch = item.itemName.toLowerCase().includes(search.toLowerCase());
+    return matchesType && matchesSearch;
+  });
+
   return (
-    <section>
-      <h1>Lost and found items</h1>
-      <p>{items.length} items reported. Build the item list here.</p>
-    </section>
+    <div className="container">
+      <section className="hero">
+        <h1>Lost something? Found something?</h1>
+        <p>Search reported items or report one so it can find its way back home.</p>
+        <Link to="/report" className="btn">Report an item</Link>
+      </section>
+
+      <div className="home-controls">
+        <input
+          className="input"
+          type="text"
+          placeholder="Search items..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <div className="filter-buttons">
+          {["all", "lost", "found"].map((type) => (
+            <button
+              key={type}
+              className={filter === type ? "btn" : "btn btn-outline"}
+              onClick={() => setFilter(type)}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {shownItems.length === 0 ? (
+        <p className="empty">No items match your search.</p>
+      ) : (
+        <div className="items-grid">
+          {shownItems.map((item) => (
+            <Link to={`/items/${item.id}`} key={item.id} className="card item-card">
+              <span className={`badge badge-${item.reportType}`}>{item.reportType}</span>
+              <h3>{item.itemName}</h3>
+              <p>{item.location.name}</p>
+              <small>{item.category} · {item.date}</small>
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
